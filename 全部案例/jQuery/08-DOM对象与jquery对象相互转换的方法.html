@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>标题</title>
+  <style>
+    .one {
+      width: 100px;
+      height: 100px;
+    }
+
+  </style>
+  <script src="jquery-1.12.4.js"></script>
+  <script>
+    $(function () {
+      //1.什么是dom对象.
+      //就是原生js的选择器获取到的元素.就是dom对象. dom对象只能调用dom的方法,不能调用jQuery的方法.
+      //var div1 = document.getElementById("one");
+      //div1.style.backgroundColor = "pink";
+      //div1.css('backgroundColor','pink');//报错了,div1.css is not a function
+
+      //2.什么是jquery对象?
+      //使用jQuery的选择器获取到的对象就是jQuery对象,只能调用jQuery的方法,不能调用dom的方法.
+      // var $div1 = $('#one'); //一般情况下给保存jQuery对象的变量名前面加上$,让人一眼就能看出这是一个jQuery对象.
+      // //$div1.css('backgroundColor','pink');
+      // $div1.style.backgroundColor = "pink";//报错了 Cannot set property 'backgroundColor' of undefined
+
+
+      //3.jQuery对象是如何构成的?
+      //jQuery对象其实是dom对象的包装集.就是对dom对象做了一层包装.
+      //jQuery对象是伪数组.
+      //var div1 = document.getElementById("one");
+      //console.log(div1);
+
+      //var $div1 = $('#one');
+      //console.log($div1);
+
+
+      // var $divs = $('div');
+      // console.log($divs);
+      // $divs.pop();//报错了,因为jQuery对象是一个伪数组,不能调用数组的方法.$divs.pop is not a function
+
+
+      //4.dom对象转jQuery对象.
+      // var div1 = document.getElementById("one");
+      // var $div1 = $(div1);
+      // $div1.css('backgroundColor','pink');
+
+
+      //5.jQuery对象转化成dom对象.
+      //a.用下标来取.
+      // var $divs = $('div');
+      // var div1 = $divs[0];
+      // var div2 = $divs[1];
+
+      //b.使用jQuery里面的一个方法get();
+      var $divs = $('div');
+      var div1 = $divs.get(0);
+      console.log(div1);
+
+
+    });
+
+
+  </script>
+</head>
+<body>
+<div class="one" id="one"></div>
+<div class="one" ></div>
+</body>
+</html>

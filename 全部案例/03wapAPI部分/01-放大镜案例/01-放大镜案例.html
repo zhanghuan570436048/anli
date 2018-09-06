@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .box {
+      width: 350px;
+      height: 350px;
+      margin: 100px;
+      border: 1px solid #ccc;
+      position: relative;
+    }
+
+    .big {
+      width: 400px;
+      height: 400px;
+      position: absolute;
+      top: 0;
+      left: 360px;
+      border: 1px solid #ccc;
+      overflow: hidden;
+      display: none;
+    }
+
+    .mask {
+      width: 175px;
+      height: 175px;
+      background: rgba(255, 255, 0, 0.4);
+      position: absolute;
+      top: 0;
+      left: 0;
+      cursor: move;
+      display: none;
+    }
+
+    .small {
+      position: relative;
+    }
+
+    .box img {
+      vertical-align: top;
+    }
+
+    #bigBox > img {
+      /*是让里面的图片脱标，为的就是让里面的图片进行一个移动*/
+      position: absolute;
+    }
+  </style>
+
+</head>
+<body>
+<div class="box" id="box">
+  <div class="small" id="smallBox">
+    <img src="images/001.jpg" width="350" alt=""/>
+
+    <div class="mask" id="mask"></div>
+  </div>
+  <div class="big" id="bigBox">
+    <img id="bigImg" src="images/0001.jpg" width="800" alt=""/>
+  </div>
+</div>
+
+</body>
+<script src="common.js"></script>
+
+
+<script>
+  /*需求分析：
+  1.鼠标移入小图片盒子，显示右边大图片盒子和遮罩层
+  2.鼠标移出小图片盒子，隐藏右边大图片盒子和遮罩层
+  3.小图片鼠标移动事件
+    * （1）遮罩层跟着鼠标移动
+    * （2）鼠标在遮罩层的中心
+    * （3）遮罩层边界检测
+    *  （4）遮罩移动时，右边大图片相应的移动（放大镜本质就是将遮罩层区域放大显示到右边大盒子中）
+      *    假如遮罩层大小是  50 * 50，大盒子100 * 100，遮罩层每移动1px像素，大盒子图片移动2px
+        *  1 * 100/50
+
+   思路分析
+    1. 获取元素
+    2.注册事件
+    3.事件处理
+   */
+
+  //1.获取元素
+  var box = id('box');//整个大盒子
+  var smallBox = id('smallBox');//小图片盒子
+  var bigBox = id('bigBox');//大图片盒子
+  var mask = id('mask');//遮罩层
+  var bigImg = id('bigImg');//大图片
+
+  //2.注册事件
+  //2.1 小图片盒子鼠标移入
+  smallBox.onmouseover = function (  ) {
+      //3.显示大图片盒子与遮罩层
+      bigBox.style.display = 'block';
+      mask.style.display = 'block';
+  }
+  //2.2 小图片盒子鼠标移出
+  smallBox.onmouseout = function (  ) {
+      //3.隐藏大图片盒子与遮罩层
+      bigBox.style.display = 'none';
+      mask.style.display = 'none';
+
+  }
+
+  //2.3 小图片盒子鼠标移动
+  smallBox.onmousemove = function ( e ) {
+      e = e || window.event;
+
+        //（1）遮罩层跟着鼠标移动
+      var x = getPagePoint(e).pageX - box.offsetLeft;
+      var y = getPagePoint(e).pageY - box.offsetTop;
+       //（2）鼠标在遮罩层的中心
+      x -= mask.offsetWidth/2;
+      y -= mask.offsetHeight/2;
+        // （3）遮罩层边界检测
+      /*
+      mask遮罩层left范围   0 < left  <  小图片盒子宽度（350） - 自身宽度（175） = 175
+      top范围   0 < left  <  小图片盒子高度（350） - 自身高度（175） = 175
+
+       */
+      x = x<0?0:x;
+      x= x>175?175:x;
+      y = y<0?0:y;
+      y =  y>175?175:y
+      mask.style.left = x + 'px';
+      mask.style.top = y + 'px';
+        // （4）遮罩移动时，右边大图片相应的移动（放大镜本质就是将遮罩层区域放大显示到右边大盒子中）
+       //   假如遮罩层大小是  50 * 50，大盒子100 * 100，遮罩层每移动1px像素，大盒子图片移动2px
+      //  1 * 100/50
+      bigImg.style.left = -x*(bigBox.offsetWidth/mask.offsetWidth) + 'px';
+      bigImg.style.top = -y*(bigBox.offsetHeight/mask.offsetHeight) + 'px';
+  }
+
+
+
+</script>
+</html>

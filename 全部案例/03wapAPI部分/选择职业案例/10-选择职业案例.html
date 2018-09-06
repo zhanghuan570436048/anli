@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <style>
+        select {
+            width: 100px;
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+<!--默认情况下select里面的option是单选样式，如果想要变成多选样式只需要写上multiple属性即可-->
+<select name="" id="left" multiple>
+    <option value="">web工程师</option>
+    <option value="">android工程师</option>
+    <option value="">ios工程师</option>
+    <option value="">php工程师</option>
+    <option value="">nodejs工程师</option>
+    <option value="">pyton小白</option>
+    <option value="">足疗爱好者</option>
+</select>
+
+<button id="btn1">&gt;&gt;</button>
+<button id="btn2">&lt;&lt;</button>
+<button id="btn3">&gt;</button>
+<button id="btn4">&lt;</button>
+
+
+<select name="" id="right" multiple></select>
+
+</body>
+
+<script>
+    /*分析需求：
+        * 点击全部右移：左边所有的选项全部移动到右边
+        * 点击全部左移：右边所有的选项全部移动到左边
+        * 点击选中右移：左边选中的选项移动到右边
+        * 点击选中左移：右边选中的选项移动到左边
+     思路分析
+        * 1.获取元素
+        * 2.注册事件
+        * 3.事件处理
+
+     */
+    //1.获取元素
+    var left=document.getElementById('left');
+    var right=document.getElementById('right');
+    var btn1=document.getElementById('btn1');//全部右移
+    var btn2=document.getElementById('btn2');//全部左移
+    var btn3=document.getElementById('btn3');//选中右移
+    var btn4=document.getElementById('btn4');//选中左移
+    //2.注册事件
+    //全部右移
+    btn1.onclick=function (  ) {
+        for(var i = 0;i<left.children.length;i++){
+            right.appendChild(left.children[i]);//在右侧显示左侧的元素
+            i--;//这里之所以要进行i--,是因为元素移走之后剩下的元素会把位置占住
+        }
+    }
+    //全部左移
+    btn2.onclick=function (  ) {
+        for(var i = 0;i<right.children.length;i++){
+            left.appendChild(right.children[i]);//在右侧显示左侧的元素
+            i--;//这里之所以要进行i--,是因为元素移走之后剩下的元素会把位置占住
+        }
+    }
+    //选中部分右移
+    btn3.onclick=function (  ){
+        for(var i = 0;i<left.children.length;i++){
+            if(left.children[i].selected==true){
+                right.appendChild(left.children[i]);
+                i--;
+            }
+        }
+    }
+    //选中部分左
+
+    btn4.onclick=function (  ){
+        for(var i = 0;i<right.children.length;i++){
+            if(right.children[i].selected==true){
+                left.appendChild(right.children[i]);
+                i--;
+            }
+        }
+    }
+
+    //1.获取元素
+    // var left = document.getElementById('left');//左边选择框
+    // var right = document.getElementById('right');//右边选择框
+    // var btn1 = document.getElementById('btn1');//全部右移
+    // var btn2 = document.getElementById('btn2');//全部左移
+    // var btn3 = document.getElementById('btn3');//选中右移
+    // var btn4  = document.getElementById('btn4');//选中左移
+
+    //2.注册事件
+
+    //2.1 全部右移
+    // btn1.onclick = function (  ) {
+    //     //3.事件处理：左边所有的选项全部移动到右边
+    //
+    //     /*明明是遍历左边left所有的子元素移动到右边？为什么不可以？
+    //     原因：当移动子元素的时候，后面的元素下标全部前移
+    //     解决方案：当移动元素的时候，循环变量i不能自增的
+    //      */
+    //     for(var i = 0;i<left.children.length;i++){
+    //         right.appendChild(left.children[i]);
+    //         i--;//抵消本次循环体的自增
+    //     }
+    // }
+    //
+    // //2.2 全部左移
+    // btn2.onclick = function (  ) {
+    //     //3.事件处理：右边所有的选项全部移动到左边
+    //
+    //     for(var i = 0;i<right.children.length;i++){
+    //         left.appendChild(right.children[i]);
+    //         i--;//抵消本次循环体的自增
+    //     }
+    //
+    // }
+    //
+    // //2.3 选中右移
+    // btn3.onclick = function (  ) {
+    //     //3.事件处理：左边选中的选项移动到右边
+    //     for(var i = 0;i<left.children.length;i++){
+    //         console.log ( left.children[ i ].selected );
+    //
+    //         if(left.children[i].selected == true){//将选中的选项移动到右边
+    //             right.appendChild(left.children[i]);
+    //             i--;//只要元素移动，数组的下标就会前移，i--抵消本次循环体自增
+    //         }
+    //     }
+    // }
+    //
+    // //2.4 选中左移
+    // btn4.onclick = function (  ) {
+    //     //3.事件处理：右边选中的选项移动到左边
+    //     for(var i = 0;i<right.children.length;i++){
+    //
+    //
+    //         if(right.children[i].selected == true){//将选中的选项移动到右边
+    //             left.appendChild(right.children[i]);
+    //             i--;//抵消本次i++
+    //         }
+    //     }
+    // }
+</script>
+</html>

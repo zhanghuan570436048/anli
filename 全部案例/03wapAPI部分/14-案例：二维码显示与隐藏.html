@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <style>
+        #small{
+
+            width: 50px;
+            height: 50px;
+            background: url("images/bgs.png") no-repeat -159px -51px;
+
+            position: fixed;
+            top: 40%;
+            right: 10px;
+        }
+
+        #big{
+
+            width: 210px;
+            height: 210px;
+            position: absolute;
+            left: -210px;
+            display: none;
+        }
+
+        #big img{
+
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div id="small">
+
+    <div id="big">
+        <img src="images/hmewm.jpg" alt=""/>
+    </div>
+
+</div>
+
+</body>
+
+<script>
+    /*需求分析：
+        1.鼠标移入小图片，显示大图片（设置display属性为block）
+        2.鼠标移除小图片，隐藏大图片（设置display属性为none）
+     思路分析
+        * 1.获取元素
+        * 2.注册事件
+            * onmouseover:鼠标移入
+            * onmouseout:鼠标移出
+        * 3.事件处理
+
+     */
+
+    //1.获取元素
+    var small = document.getElementById('small');//小图片
+    var big = document.getElementById('big');//大图片
+
+    //2.注册事件
+
+    //2.1 小图片鼠标移入
+    small.onmouseover = function (  ) {
+        console.log ( "鼠标移入我了" );
+        //3.显示大图片
+        big.style.display = 'block';
+    }
+
+    //2.2 小图片鼠标移出
+    small.onmouseout = function (  ) {
+        console.log ( "鼠标移出我了" );
+        //3.隐藏大图片
+        big.style.display = 'none';
+    }
+
+</script>
+
+</html>

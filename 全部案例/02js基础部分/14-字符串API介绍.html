@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+    //字符串API在以后开发中使用较多
+
+    var str = '欢迎来到黑马程序员学习大前端开发，爱你么么哒';
+
+    //1.获取字符串长度:(字符串类似于字符组成的数组)
+    console.log ( str.length );
+
+    //2.获取某一个下标字符   等价于： 字符串[下标]
+    console.log ( str.charAt ( 4 ) );
+    console.log ( str[ 4 ] );//简写形式，用的较多
+
+    //3.拼接字符串   相当于字符串连接符
+    // console.log ( str.concat ( "坤哥" ) );
+    str += '坤哥';//用的较多
+    console.log ( str );
+
+    //4.判断字符串中是否包含另一个字符串
+    //返回值是参数字符串首字符在str中的下标
+    console.log ( str.indexOf ( "程序员" ) );//6
+    /* 如果这个方法返回值是-1，说明参数字符串不在str中  */
+    console.log ( str.indexOf ( "班长" ) );
+
+    //5.截取字符串
+    //str.substr(strat,length)   start:要开始截取的下标   length:要截取的长度
+    console.log ( str.substr ( 4, 5 ) );//黑马程序员
+
+    //6.修改字符串
+    //  str.replace(旧字符串，新字符串)
+    console.log ( str.replace ( "黑马", "白马" ) );
+    // 删除某一个字符 ，将这个字符替换成空字符串
+    console.log ( str.replace ( "学习", "" ) );
+
+    //7.大小写转换
+    var str1 = 'aksjgvkjasSAKJGBSDKJsldkbgnldk';
+    console.log ( str1.toLowerCase () );//aksjgvkjassakjgbsdkjsldkbgnldk
+    console.log ( str1.toUpperCase () );//AKSJGVKJASSAKJGBSDKJSLDKBGNLDK
+
+    //8.分隔字符串：  将字符串按照特定的字符分隔成数组
+    //split（）：方法一定是一个数组,如果字符串中没有这个分隔符，则会将整个字符串放入数组中
+    var str2 = '我-爱-你&你-不-爱-我';
+    console.log ( str2.split ( "-" ) );
+
+    //9.去除字符串两边的空格(无法去掉字符串中间的)
+    var str3 = '    aksg   fkjsa     '
+    console.log ( str3 );
+    console.log ( str3.trim () );
+</script>
+</body>
+</html>

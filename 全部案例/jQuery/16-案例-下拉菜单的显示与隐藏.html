@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .wrap {
+            width: 330px;
+            height: 30px;
+            margin: 100px auto 0;
+            padding-left: 10px;
+            background-image: url(images/bg.jpg);
+        }
+
+        .wrap li{
+            background-image: url(images/libg.jpg);
+        }
+
+        .wrap > ul > li {
+            float: left;
+            margin-right: 10px;
+            position: relative;
+        }
+
+        .wrap a {
+            display: block;
+            height: 30px;
+            width: 100px;
+            text-decoration: none;
+            color: #000;
+            line-height: 30px;
+            text-align: center;
+        }
+
+        .wrap li ul {
+            position: absolute;
+            top: 30px;
+            display: none;
+        }
+    </style>
+    <script src="jquery-1.12.4.js"></script>
+    <script>
+      $(function () {
+        //1.需求:给一级菜单的li标签设置鼠标移入事件,他下面的二级菜单的ul设置为显示.
+        //       给一级菜单的li标签设置鼠标移出事件,他下面的二级菜单的ul设置为隐藏.
+
+        //$('li'); //不行
+        //$('ul>li'); //不行
+        //$('.wrap li'); //不行
+
+
+        $('.wrap>ul>li').mouseover(function () {
+          //$(this).children('ul').css('display','block');
+          $(this).children('ul').show();
+        });
+
+        $('.wrap>ul>li').mouseout(function () {
+          $(this).children('ul').hide();
+        });
+
+
+
+
+
+        //思考题:为什么是给一级菜单li标签设置鼠标移入移出事件,而不是给一级菜单a标签设置?
+//        $('.wrap>ul>li>a').mouseover(function () {
+//          $(this).next().show();
+//        });
+//
+//        $('.wrap>ul>li>a').mouseout(function () {
+//          $(this).next().hide();
+//        });
+
+
+      });
+    </script>
+</head>
+<body>
+<div class="wrap">
+    <ul>
+        <li>
+            <a href="javascript:void(0);">一级菜单1</a>
+            <ul>
+                <li><a href="javascript:void(0);">二级菜单1</a></li>
+                <li><a href="javascript:void(0);">二级菜单2</a></li>
+                <li><a href="javascript:void(0);">二级菜单3</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0);">一级菜单1</a>
+            <ul>
+                <li><a href="javascript:void(0);">二级菜单1</a></li>
+                <li><a href="javascript:void(0);">二级菜单2</a></li>
+                <li><a href="javascript:void(0);">二级菜单3</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0);">一级菜单1</a>
+            <ul>
+                <li><a href="javascript:void(0);">二级菜单1</a></li>
+                <li><a href="javascript:void(0);">二级菜单2</a></li>
+                <li><a href="javascript:void(0);">二级菜单3</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

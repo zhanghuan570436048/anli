@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .clock {
+            width: 600px;
+            height: 600px;
+            margin: 100px auto;
+            background: url(images/clock.jpg) no-repeat;
+            position: relative;
+        }
+
+        .clock div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url(images/hour.png) no-repeat center center;
+        }
+
+        #m {
+            background-image: url(images/minute.png);
+        }
+
+        #s {
+            background-image: url(images/second.png);
+        }
+    </style>
+</head>
+<body>
+<div class="clock">
+    <div id="h"></div>
+    <div id="m"></div>
+    <div id="s"></div>
+</div>
+</body>
+
+<script src="common.js"></script>
+
+<script>
+    /*思路分析：
+    一个表盘360度
+    一个表盘有60秒  ：  1秒 =  360/60 = 6度
+    一个表盘有60分： 1分 = 360/60 = 6度
+    一个表盘有12小时：  1小时 = 360/12 = 30度
+
+    假如时间： 00：00：10
+        * 秒钟：  10 * 6 = 60度
+        * 分种：   10/60 * 6 = 1度
+        * 时钟：   10/3600 * 30 = 1/12  度
+   假如时间：  03：10：20
+        * 秒钟：   20 * 6 = 120度
+        * 分钟： 10 * 6 + 20/60 * 6 = 62度
+        * 时钟： 3*30 + 10/60 * 30 + 20/3600 * 30 = 95.6
+     */
+    //获取元素
+     var hdiv=document.getElementById('h');
+     var mdiv=document.getElementById('m');
+     var sdiv=document.getElementById('s');
+     //注册事件
+    setInterval(function (  ) {
+        //需要获取当前时间
+        var date=new Date();
+        var h=date.getHours();
+        var m=date.getMinutes();
+        var s=date.getSeconds();
+        var ms=date.getMilliseconds();
+        //计算时分钟所走的度数
+        var sdeg=s*6+ms/1000*6;
+        var mdeg=(m + s/60)*6;
+        var hdeg=(h + m/60 + s/3600)*30;
+        //改变元素的角度
+        hdiv.style.transform= 'rotate(' + hdeg + 'deg)';
+        mdiv.style.transform= 'rotate(' + mdeg + 'deg)';
+        sdiv.style.transform= 'rotate(' + sdeg + 'deg)';
+    })
+
+//老师代码
+//     var hDiv = id('h');//小时div
+//     var mDiv = id('m');//分钟div
+//     var sDiv = id('s');//秒钟div
+//
+//     //页面已加载：走字
+//     // zouzi();
+//
+//     setInterval(function (  ) {
+//         // zouzi();
+//         // function zouzi (  ) {
+//         //1.获取当前真实时间
+//         var date = new Date();
+//         //2.获取时分秒
+//         var s = date.getSeconds();
+//         var m = date.getMinutes();
+//         var h = date.getHours();
+//         var ms = date.getMilliseconds();
+//         //3.计算时分秒的角度
+//         var sDeg = s * 6+ ms/1000 * 6;
+//         var mDeg = (m + s/60)*6;
+//         var hDeg = (h + m/60 + s/3600)*30;
+//
+//         //4.改变元素的角度
+//         hDiv.style.transform = 'rotate(' + hDeg + 'deg)';
+//         mDiv.style.transform = 'rotate(' + mDeg + 'deg)';
+//         sDiv.style.transform = 'rotate(' + sDeg + 'deg)';
+//         // }
+//     },10)
+
+</script>
+</html>

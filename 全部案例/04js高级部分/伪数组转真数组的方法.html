@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>标题</title>
+  <script>
+    //1.需求:伪数组转换成真数组.     有时候得到的结果,或者别人传递给你的就是伪数组, 转成真数组的目的是想调用真数组里面的一些方法.
+
+    //自己定义一个伪数组.
+    var weiArr = {
+      0:'林黑群',
+      1:'林骚群',
+      2:'保健坤',
+      3:'张少坤',
+      4:'欧阳萍',
+      5:'区志玲',
+      6:'社会龙',
+      length:7
+    }
+
+    // console.log(weiArr[6]);
+    // for(var i = 0 ; i < weiArr.length; i++){
+    // 	console.log(weiArr[i]);
+    // }
+    // weiArr.push('彭爽'); //报错了,应该伪数组没有数组的方法.
+
+
+    //2.转真数组01
+    // var arr = [];
+    // for(var i = 0 ; i < weiArr.length ; i++){
+    // 	arr[i] = weiArr[i];
+    // }
+    // console.log(arr);
+
+
+    //3.转真数组02
+    // var arr = [];
+    // for(var i = 0 ; i < weiArr.length ; i++){
+    //   arr.push(weiArr[i]);
+    // }
+    // console.log(arr);
+
+
+    //4.转真数组03 - 使用apply();
+    // var arr = [];
+    // arr.push.apply(arr,weiArr);
+    // console.log(arr);
+
+
+    //5.转真数组04 - 使用slice();
+    //var arrNew = weiArr.slice(0); //如果weiArr真的可以点出slice方法来,那这样做的返回值就是和weiArr是一样的真数组. 关键是weiArr是伪数组,不能点出这个slice方法来.
+    // var arrNew = Array.prototype.slice.call(weiArr,0); //借用Array.prototype里面的slice方法.
+    // console.log(arrNew);
+
+
+    //6.转真数组05 - 使用concat()
+    var arr = [];
+    //var arrNew = arr.concat(weiArr); //如果这样的话,会把weiArr作为一个元素存进arr中. 这样不行
+    var arrNew = arr.concat.apply(arr,weiArr);
+    console.log(arrNew);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //--------------------------------------
+    // var arr = [10,20,30,40,50];
+    // var arrnew =  arr.slice(0);//从0开始,第二个参数不写, 就会返回一模一样的数组.
+    // console.log(arrnew);
+
+
+    //concat();
+    // var arr1 = [10,20,30,40,50];
+    // var arr2 = [60,70];
+    // var arrNew = arr1.concat(arr2);
+    // console.log(arrNew);
+    // console.log(arr1);
+    // console.log(arr2);
+
+
+    // var arr1 = [10,20,30,40,50];
+    // var arrNew = arr1.concat(60,70);
+    // console.log(arrNew);
+
+
+
+  </script>
+</head>
+<body>
+
+</body>
+</html>

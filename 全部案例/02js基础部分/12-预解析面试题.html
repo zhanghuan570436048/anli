@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+    //练习1
+    console.log ( a ) ;
+    var a = "我是变量";
+    function a(){
+        console.log ( "我是函数" );
+    };
+    console.log ( a );
+
+    /*
+    var a;
+     function a(){
+        console.log ( "我是函数" );
+    };
+
+    console.log ( a ) ;//console.log ( "我是函数" );
+    a = "我是变量";
+
+    console.log ( a );//"我是变量"
+     */
+
+    //练习2
+    var num = 10;
+    fun();
+    function fun(){
+        console.log(num);
+        var num = 20;
+    }
+    console.log ( num );
+
+    /*
+    var num;
+     function fun(){
+      var num;
+        console.log(num);//undefined
+        num = 20;
+    }
+
+
+    num = 10;
+    fun();
+
+    console.log ( num );//10
+
+     */
+</script>
+</body>
+</html>

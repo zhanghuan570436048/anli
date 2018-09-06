@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>tab栏切换</title>
+    <style>
+        .Box {
+            width: 240px;
+            border: 1px solid #000;
+            margin: 100px auto;
+            padding: 20px;
+        }
+
+        .con {
+            width: 100%;
+            height: 200px;
+            background-color: #cccccc;
+            border: 1px solid #000;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .current {
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+<div class="Box" id="box">
+    <button class="current">按钮1</button>
+    <button>按钮2</button>
+    <button>按钮3</button>
+    <button>按钮4</button>
+    <div class="con" style="display: block" >内容1</div>
+    <div class="con" >内容2</div>
+    <div class="con" >内容3</div>
+    <div class="con" >内容4</div>
+</div>
+
+<script>
+    /*需求分析：
+        点击上方按钮
+            * 自身样式变化（颜色改变）
+            * 下方显示对应大盒子
+     思路分析：
+        1.获取元素（按钮数组，下方大盒子数组）
+        2.遍历数组，给每一个按钮添加一个index属性记录下标
+        3.注册点击事件
+        4.事件处理
+            * 4.1 改变自身样式，排他思想改变其他按钮样式为默认
+            * 4.2 修改对应下标的大盒子的display属性为block，排他思想隐藏其他大盒子
+     */
+
+   // 1.获取元素（按钮数组，下方大盒子数组）
+    var buttonList = document.getElementsByTagName('button');//按钮列表
+    var  divList = document.getElementsByClassName('con');//大盒子列表
+      //  2.遍历数组，给每一个按钮添加一个index属性记录下标
+    for(var i = 0;i<buttonList.length;i++){
+        //2.1 给每一个按钮添加一个index属性
+        buttonList[i].setAttribute('index',i);
+
+        //3.注册点击事件
+        buttonList[i].onclick = function (  ) {
+            //4.事件处理
+            //获取当前点击按钮的下标
+            var index = this.getAttribute('index');
+            console.log ( index );
+            //4.1 排他思想改变样式
+            for(var j = 0;j<buttonList.length;j++){
+                if(buttonList[j] == this){//如果是自己就修改样式为current
+                    buttonList[j].className = 'current';
+                }else{//不是自己就修改样式为默认
+                    buttonList[j].className = '';
+                }
+            }
+            //4.2 排他思想设置大盒子display属性
+            for(var j = 0;j<divList.length;j++){
+                if(j == index){//如果大盒子的下标与当前点击按钮的下标一致，则显示
+                    divList[j].style.display = 'block';
+                }else{
+                    divList[j].style.display = 'none';
+                }
+            }
+        }
+    }
+
+
+</script>
+</body>
+</html>

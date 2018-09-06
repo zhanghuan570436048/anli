@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 1px solid #c0c0c0;
+            width: 500px;
+            margin: 100px auto;
+            text-align: center;
+        }
+
+        th {
+            background-color: #09c;
+            font: bold 16px "微软雅黑";
+            color: #fff;
+            height: 24px;
+        }
+
+        td {
+            border: 1px solid #d0d0d0;
+            color: #404060;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <tr>
+        <th>
+            <input type="checkbox" name="" id="checkAll"/>全选/全不选
+        </th>
+        <th>菜名</th>
+        <th>商家</th>
+        <th>价格</th>
+    </tr>
+    <tr>
+        <td>
+            <input type="checkbox" name="check"/>
+        </td>
+        <td>红烧肉</td>
+        <td>隆江猪脚饭</td>
+        <td>￥200</td>
+    </tr>
+    <tr>
+        <td>
+            <input type="checkbox" name="check"/>
+        </td>
+        <td>香酥排骨</td>
+        <td>隆江猪脚饭</td>
+        <td>￥998</td>
+    </tr>
+    <tr>
+        <td>
+            <input type="checkbox" name="check"/>
+        </td>
+        <td>北京烤鸭</td>
+        <td>隆江猪脚饭</td>
+        <td>￥88</td>
+    </tr>
+
+
+</table>
+
+</body>
+
+<script>
+    /*需求分析：（1）点击上方选择框，让下方所有选择框状态与上方选择框一致
+    （2）点击下方选择框
+        * 如果所有的选择框都是选中状态，上方选择框选中状态
+        * 反之，只要有一个选择框不是选中状态，上方选择框未选中状态
+
+     思路分析：
+        * 1.获取元素
+        * 2.注册事件
+        * 3.事件处理
+
+     */
+
+    // 1.获取元素
+    var checkAll = document.getElementById('checkAll');//上方选择框（全选全不选）
+    var checkList = document.getElementsByName('check');//下方选择框数组
+    // 2.注册事件
+
+    //2.1 上方选择框
+    checkAll.onclick = function (  ) {
+        // 3.事件处理
+        //让下方选择框状态与自身一致
+        console.log ( this.checked );
+        for(var i = 0;i<checkList.length;i++){
+            checkList[i].checked = this.checked;
+        }
+    }
+
+    //2.2 下方选择框列表
+    for(var i = 0;i<checkList.length;i++){
+        checkList[i].onclick = function (  ) {
+            //3.事件处理
+            console.log ( this.checked );
+            /*1.如果一个操作产生的结果只有两种情况：开关思想
+            2.先假设开关成立true
+            3.验证假设，如果被推翻就把开关状态改为false
+
+            如果所有的选择框都是选中状态，上方选择框选中状态
+               反之，只要有一个选择框不是选中状态，上方选择框未选中状态
+
+             */
+            var isAllCheck = true;//假设本次点击刚好所有的都是选中状态
+            for(var j = 0;j<checkList.length;j++){
+                if(checkList[j].checked == false){//只要有任何一个选择框的状态是未选中，假设被推翻
+                    isAllCheck = false;
+                    break;//这里可以加break关键字提高性能，只要假设被推翻后面没有验证必要
+                }
+            }
+
+            checkAll.checked = isAllCheck;//将开关的结果赋值给上方选择框
+
+        }
+    }
+
+</script>
+</html>

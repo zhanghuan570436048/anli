@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+    /*冒泡排序核心原理：数字中相邻的两个元素比较大小，然后交换位置
+    冒泡法排序是固定的三个步骤：
+        * 1.外层循环决定比较的轮数：  arr.length - 1
+        * 2.内层循环决定每一轮比较的次数 ：  内层循环次数 = arr.length - 1 - i
+        * 3.比较大小，交换位置
+
+     */
+    var arr = [18,15,10,20,5,88,99,21,-5];//[5,10,15,18,20]
+
+    /*外层循环：比较的轮数 arr.length-1
+    内层循环：决定每一轮比较的次数
+     第一轮：   i = 0    比较次数  4
+     第二轮      i = 1      比较次数  3
+     第三轮：  i =2      比较次数      2
+     第四轮： i=3      比较次数    1
+     关系：外层循环变量i  +  内层循环次数 = arr.length - 1
+     内层循环次数 = arr.length - 1 -i
+     */
+
+    for(var i = 0;i<arr.length-1;i++){//1.外层循环决定比较的轮数
+        for(var j = 0;j<arr.length - 1 -i;j++){//2.内层循环决定每一轮比较的次数
+            //3.交换位置
+            if(arr[j] > arr[j+1]){
+                var temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
+    }
+
+    console.log ( arr );
+
+
+
+//这个使用数组的api方法求得的
+    var arr = [1190,120,220,215,210,500,400,110];
+    arr.sort(function (a,b) {
+        return b-a;
+    });
+    console.log(arr);
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

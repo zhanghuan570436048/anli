@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+    /*1.翻转数组
+   2.斐波那契阿数列
+    */
+
+    //1.翻转数组
+    var arr = [90,88,20,100,5];//【5，100，88，90】
+
+    var newArr = [];
+    //(1) 对数组倒着遍历
+    // for(var i = arr.length-1;i>=0;i--){
+    //     console.log ( arr[ i ] );
+    //     newArr[newArr.length] = arr[i];
+    // }
+    // console.log ( newArr );
+
+    //(2)使用变量交换的方式
+    /*
+    第一个元素和最后一个元素交换
+        0                arr.length-1
+    第二个元素和倒数第二个元素交换
+       1                 arr.length-1 - 1
+    第三个元素和倒数第三个元素交换
+       2                  arr.length-1 - 2
+    第i个元素和倒数第arr.length-1 - i个元素交换
+     */
+    // for(var i = 0;i<arr.length/2;i++){
+    //     //i下标元素要与   length-1-i元素交换
+    //     var temp = arr[i];
+    //     arr[i] = arr[arr.length-1-i];
+    //     arr[arr.length-1-i] = temp;
+    // }
+    // console.log ( arr );
+
+    ///2.斐波那契阿数列:1,1,2,3,5,8,13,21,34,55.....   求第十位数字是几？
+    //特点:从第三个数字开始，每一个数字是前两个数字的和
+
+    var arr = [1,1];
+    for(i=2;i<10;i++){//i=2  因为只有从下标为2开始开始  每一个元素才是前面两个元素的和
+        arr[i] = arr[i-1] + arr[i-2];
+    }
+    //第十列数字刚好是数组的最后一个元素
+    console.log ( arr[arr.length-1] );
+
+    //下面的使用递归做求得肥波(性能低下,计算次数过多)
+    function getFB(n){
+        if(n == 1 || n == 2){
+            return 1;
+        }
+        return getFB(n-1) + getFB(n-2);
+    }
+    console.log(getFB(9));
+
+    //如何解决这个性能低下的问题.(这个性能比较好)
+        //思路:已经算过的项,就不要再算了,就会少很多计算重复项的调用.
+        //已经求过的项,保存起来, 如果下次还要求这个项就可以直接取出来用.(而不是调用getFB来求出来.)
+        //如何保存,用什么东西保存.  用对象保存.
+
+            var i = 0;//声明一个变量i,用来记录调用getFB的次数.
+    //声明一个对象obj,用来保存已经求过的斐波那契项.
+    var obj = {};
+    function getFB(n){
+        i++;
+        //先去obj对象中看看,n这位之前求过没有,如果求过就直接拿出来用,如果没有求过就求.
+        if(obj[n]){
+            //如果到了这里,说明n位已经求过了.
+            return obj[n];
+        }else {
+            //如果到了这里,说明n位没有求过,就要求.
+            if(n == 1 || n == 2 ){
+                //把求过的值存进obj里面,方便以后拿来用.
+                obj[n] = 1;
+                return 1;
+            }else {
+                //把求过的值存进obj里面,方便以后拿来用.
+                obj[n] =  getFB(n-1) + getFB(n-2);
+                return obj[n];
+            }
+        }
+    }
+
+
+    //使用闭包
+    function createFB(){
+        var obj = {};
+        function getFB(n){
+            if(obj[n]){
+                return obj[n];
+            }else {
+                if(n == 1 || n == 2 ){
+                    obj[n] = 1;
+                    return 1;
+                }else {
+                    obj[n] =  getFB(n-1) + getFB(n-2);
+                    return obj[n];
+                }
+            }
+        }
+        return getFB;
+    }
+    console.log(createFB()(50));
+
+
+
+
+</script>
+</body>
+</html>

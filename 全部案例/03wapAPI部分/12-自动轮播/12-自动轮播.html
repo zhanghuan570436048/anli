@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            border: 0;
+        }
+
+        .all {
+            width: 500px;
+            height: 200px;
+            padding: 7px;
+            border: 1px solid #ccc;
+            margin: 100px auto;
+            position: relative;
+        }
+
+        .screen {
+            width: 500px;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .screen li {
+            width: 500px;
+            height: 200px;
+            overflow: hidden;
+            float: left;
+        }
+
+        .screen ul {
+            position: absolute;
+            left: 0;
+            top: 0px;
+            width: 3000px;
+        }
+
+        .all ol {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            line-height: 20px;
+            text-align: center;
+        }
+
+        .all ol li {
+            float: left;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .all ol li.current {
+            background: yellow;
+        }
+
+        #arr {
+            display: none;
+        }
+
+        #arr span {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            left: 5px;
+            top: 50%;
+            margin-top: -20px;
+            background: #000;
+            cursor: pointer;
+            line-height: 40px;
+            text-align: center;
+            font-weight: bold;
+            font-family: '黑体';
+            font-size: 30px;
+            color: #fff;
+            opacity: 0.3;
+            border: 1px solid #fff;
+        }
+
+        #arr #right {
+            right: 5px;
+            left: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="all" id='box'>
+    <div class="screen">
+        <ul>
+            <li><img src="images/01.jpg" width="500" height="200"/></li>
+            <li><img src="images/02.jpg" width="500" height="200"/></li>
+            <li><img src="images/03.jpg" width="500" height="200"/></li>
+            <li><img src="images/04.jpg" width="500" height="200"/></li>
+            <li><img src="images/05.jpg" width="500" height="200"/></li>
+            <li><img src="images/01.jpg" width="500" height="200"/></li>
+        </ul>
+        <ol>
+            <li class="current">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ol>
+
+    </div>
+    <div id="arr"><span id="left">&lt;</span><span id="right">&gt;</span></div>
+</div>
+
+</body>
+
+<script src="common.js"></script>
+<script src="animation.js"></script>
+<script>
+    /*第五步：实现自动轮播
+    需求分析：（1）每隔2s，自动实现下一页点击功能
+    （2）当鼠标移入box时，清除定时器，切换手动操作
+    (3)当鼠标移出box时，开启定时器，切换自动轮播
+        * 细节：下一页逻辑代码会执行多次，只需要放入函数中（解决代码复用的问题）
+
+     */
+
+    //1.获取元素
+    var box = id('box');//最外面div，有边框
+    var screen = document.getElementsByClassName('screen')[0];//获取图片可视div,screen
+    var ul =  screen.children[0];//图片列表ul标签
+    var ol =  screen.children[1];//页码标签
+    var liList = ul.children;//图片li标签数组
+    var olList = ol.children;//页码li标签数组
+    var arr = id('arr');//上一页下一页所在的div
+    var left = id('left');//上一页按钮
+    var right = id('right');//下一页按钮
+
+    //声明一个全局变量，记录当前应该显示图片的下标
+    var index = 0;
+
+    var timeID = null;//记录自动轮播定时器id
+
+    timeID = setInterval(function (  ) {
+        nextPage();
+    },2000);
+
+    //2.鼠标移入移出，显示/隐藏上一页下一页按钮
+    box.onmouseover = function (  ) {
+        arr.style.display = 'block';
+        //清除自动轮播，切换手动操作
+        clearInterval(timeID);
+    }
+
+    box.onmouseout = function (  ) {
+        arr.style.display = 'none';
+      timeID  = setInterval(function (  ) {
+            nextPage();
+        },2000);
+    }
+
+    //3.上一页下一页点击事件
+    //上一页
+    left.onclick = function (  ) {
+
+        //(1)边界检测
+        if(index == 0){//如果是第一张  index = 0
+            //修改index为最大下标
+            index = liList.length-1;
+            //瞬间修改ul的位置为最后一张
+            ul.style.left = -index*screen.offsetWidth + 'px';
+        }
+        //(2)图片下标-1
+        index--;
+        //(3)动画滚动图片  移动距离：  index* screen盒子的宽度
+        animationMove(ul,-index*screen.offsetWidth);
+        //(4)使用排他思想改变页码样式
+        for(var i = 0;i<olList.length;i++){
+            if(i == index){//如果页码下标与index一致，说明是当前页面，需要改变样式
+                olList[i].className = 'current';
+            }else{
+                olList[i].className = '';
+            }
+        }
+
+        //(5)如果是数组的最后一张，页码应该显示第一张
+        if(index == liList.length-1){
+            olList[0].className = 'current';
+        }
+        console.log ( index );
+    }
+    //下一页
+    right.onclick = function (  ) {
+       nextPage();
+    }
+
+    //将下一页的逻辑代码存入函数中
+    function nextPage (  ) {
+        //(1)边界检测
+        if(index == liList.length-1){//如果index图片下标是图片数组的最大下标则不移动
+            ul.style.left = '0px';//瞬间改变ul的位置为0
+            index = 0;//下标复位
+        }
+        //(2)图片下标+1
+        index++;
+        //(3)动画滚动图片  移动距离：  index* screen盒子的宽度
+        animationMove(ul,-index*screen.offsetWidth);
+
+        //(4)使用排他思想改变页码样式
+        for(var i = 0;i<olList.length;i++){
+            if(i == index){//如果页码下标与index一致，说明是当前页面，需要改变样式
+                olList[i].className = 'current';
+            }else{
+                olList[i].className = '';
+            }
+        }
+
+        //(5)如果是数组的最后一张，页码应该显示第一张
+        if(index == liList.length-1){
+            olList[0].className = 'current';
+        }
+        console.log ( index );
+    }
+
+    //4.给页码添加点击事件
+    for(var i = 0;i<olList.length;i++){
+        //4.1 给每一个页码添加一个自定义属性记录下标
+        olList[i].setAttribute('yemaIndex',i);
+        olList[i].onclick = function (  ) {
+            //4.2 获取当前页码点击的下标
+            var yemaIndex = this.getAttribute('yemaIndex');
+            //4.3 修改index位置为页码下标
+            index = yemaIndex;
+            //4.4 开始滚动
+            animationMove(ul,-index*screen.offsetWidth);
+            //4.5 使用排他思想改变页码样式
+            for(var j = 0;j<olList.length;j++){
+                if(olList[j] == this){
+                    this.className = 'current';
+                }else{
+                    olList[j].className = '';
+                }
+            }
+        }
+    }
+</script>
+</html>

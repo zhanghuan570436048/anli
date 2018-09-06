@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>优酷轮播</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    img {
+      display: block;
+    }
+
+    .box {
+      width: 1196px;
+      height: 320px;
+      overflow: hidden;
+      position: relative;
+      margin: 100px auto 0;
+      /*border: 1px solid red;*/
+    }
+
+    span {
+      width: 45px;
+      height: 45px;
+      position: absolute;
+      top: 50%;
+      margin-top: -23px;
+      background: green;
+      z-index: 99999;
+      cursor: pointer;
+    }
+
+    .right {
+      right: 16px;
+      background: url(img/02/youanniu.png) 0 0 no-repeat;
+    }
+
+    .left {
+      left: 16px;
+      background: url(img/02/zuoanniu.png) 0 0 no-repeat;
+    }
+
+    li {
+      position: absolute;
+    }
+
+    li img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .list li.no0 {
+      width: 281px;
+      height: 130px;
+      left: -76px;
+      top: 82px;
+      z-index: 666;
+    }
+
+    .list li.no1 {
+      width: 435px;
+      height: 223px;
+      left: 0px;
+      top: 30px;
+      z-index: 777;
+    }
+
+    .list li.no2 {
+      width: 639px;
+      height: 271px;
+      left: 278px;
+      top: 6px;
+      z-index: 888;
+    }
+
+    .list li.no3 {
+      width: 435px;
+      height: 223px;
+      left: 761px;
+      top: 30px;
+      z-index: 777;
+    }
+
+    .list li.no4 {
+      width: 281px;
+      height: 130px;
+      left: 1053px;
+      top: 82px;
+      z-index: 666;
+    }
+
+    .list li.waiting {
+      display: none;
+      z-index: 0
+    }
+  </style>
+  <script src="js/jquery-1.12.2.js"></script>
+  <script>
+    $(function () {
+      // 将每一个LI所在的位置给它存起来
+//		var json0 = {"width":281,"height": 130,"left": -76,"top": 82};
+//		var json1 = {"width":435,"height":223,"left":0,"top":30};
+//		var json2 = {"width":639,"height":271,"left":278,"top":6};
+//		var json3 = {"width":435,"height":223,"left":761,"top":30};
+//		var json4 = {"width":281,"height": 130,"left": 1053,"top": 82};
+
+      var json = [
+        {"width": 281, "height": 130, "left": -76, "top": 82},
+        {"width": 435, "height": 223, "left": 0, "top": 30},
+        {"width": 639, "height": 271, "left": 278, "top": 6},
+        {"width": 435, "height": 223, "left": 761, "top": 30},
+        {"width": 281, "height": 130, "left": 1053, "top": 82}
+      ]
+
+      // 数组不变，让li标签变化
+      // 1. 给右侧按钮注册事件   每点击一次右侧按钮，都要将第一个li标签剪切下来，追加到数组的最后
+      // 用新生成的li标签还是拥有原来的数组中的类样式
+      $(".right").on("click", function () {
+        if(!$(".list ul li").is(":animated")){
+          $(".list ul").append($(".list ul li:first"));// 将第一个li标签剪切下来，追加到ul的最后
+          $(".list ul li:eq(4)").css(json[4]);
+          assign();
+        }
+      })
+
+      // 2. 给左侧按钮注册事件    是将最后一个剪切下来追加到数组的最前面
+      $(".left").on("click",function (){
+        if(!$(".list ul li").is(":animated")){
+          $(".list ul").prepend($(".list ul li:last"));//把数组中的最后一个剪切下来，追加到数组的最前面
+          $(".list ul li:first").css(json[0]);
+          assign();
+        }
+
+      })
+      function assign(){
+        var lis = $(".list ul li:lt(5)");//选中前5个li标签
+        $(".list ul li:gt(4)").removeClass().addClass("waiting");
+        $.each(json, function (index, ele) {
+          lis.eq(index).animate(json[index], 300).removeClass().addClass("no" + index);
+        })
+      }
+
+      // 思路
+      // 1. 点右侧按钮的时候，把第一个li标签剪切下来，追加到ul的最后，重新选择前5个li标签进行样式设置，后4个li标签仍然是waiting
+      // 2. 点左侧按钮的时候，把最后一个li标签剪切下来，追加到ul的第一个位置,重新选择前5个li标签进行样式设置,后4个li标签仍然是waiting
+    });
+  </script>
+</head>
+<body>
+<div class="box">
+  <div class="list">
+    <ul>
+      <li class="no0"><img src="img/02/a.jpg" alt=""></li>
+      <li class="no1"><img src="img/02/b.jpg" alt=""></li>
+      <li class="no2"><img src="img/02/c.jpg" alt=""></li>
+      <li class="no3"><img src="img/02/d.jpg" alt=""></li>
+      <li class="no4"><img src="img/02/e.jpg" alt=""></li>
+      <li class="waiting"><img src="img/02/f.jpg" alt=""></li>
+      <li class="waiting"><img src="img/02/g.jpg" alt=""></li>
+      <li class="waiting"><img src="img/02/h.jpg" alt=""></li>
+      <li class="waiting"><img src="img/02/i.jpg" alt=""></li>
+    </ul>
+  </div>
+  <div class="btn">
+    <span class="left"></span>
+    <span class="right"></span>
+  </div>
+</div>
+</body>
+</html>

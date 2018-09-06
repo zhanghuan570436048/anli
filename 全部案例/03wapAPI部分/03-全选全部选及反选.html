@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input class = 'check' type="checkbox" >
+<input class = 'check' type="checkbox">
+<input class = 'check' type="checkbox">
+<input class = 'check' type="checkbox">
+<input class = 'check' type="checkbox">
+<input id="checkAll" type="button" value="全选">
+<input id="unCheckAll" type="button" value="全不">
+<input id="reverseCheck" type="button" value="反选">
+</body>
+
+
+<script>
+    /*需求分析：
+        * （1）点击全选，所有的选择框都是选中状态
+        * (2)点击全不选择，所有的选择框都是未选中状态
+        * （3）点击反选，所有的选择框选择状态与自身当前状态相反
+    思路分析
+        * 1.获取元素
+        * 2.添加事件
+        * 3.事件处理
+     */
+
+    // 1.获取元素
+    var  checkList = document.getElementsByClassName('check');//选择框列表
+    var checkAll = document.getElementById('checkAll');//全选
+    var unCheckAll = document.getElementById('unCheckAll');//全不选
+    var reverseCheck = document.getElementById('reverseCheck');//反选
+
+    // 2.添加事件
+
+    //2.1 全选
+    checkAll.onclick = function (  ) {
+        //3.事件处理
+        //点击全选，所有的选择框都是选中状态
+        for(var i = 0;i<checkList.length;i++){
+            checkList[i].checked = true;
+        }
+    }
+
+    //2.2 全不选
+    unCheckAll.onclick = function (  ) {
+        //点击全不选，所有的选择框都是未选中状态
+        for(var i = 0;i<checkList.length;i++){
+            checkList[i].checked = false;
+        }
+    }
+
+    //2.3 反选
+    reverseCheck.onclick = function (  ) {
+        //点击反选，所有的选择框都是选中状态与自身相反
+        for(var i = 0;i<checkList.length;i++){
+            console.log ( checkList[ i ].checked );
+            checkList[i].checked = !checkList[i].checked;
+        }
+    }
+
+</script>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+
+        .small {
+            width: 180px;
+        }
+
+        li {
+            float: left;
+            list-style: none;
+            margin-right: 20px;
+        }
+        ul {
+            width: 1000px;
+            margin: 0 auto;
+
+            height: 160px;
+
+        }
+        .father {
+            width: 1000px;
+            margin: 0 auto;
+        }
+        .father #bigPic {
+            width: 1000px;
+        }
+    </style>
+</head>
+<body>
+<ul id="ul1">
+    <li><a href="images/01.jpg"><img src="images/01.jpg" alt="" class="small"/></a></li>
+    <li><a href="images/02.jpg"><img src="images/02.jpg" alt="" class="small"/></a></li>
+    <li><a href="images/03.jpg"><img src="images/03.jpg" alt="" class="small"/></a></li>
+    <li><a href="images/04.jpg"><img src="images/04.jpg" alt="" class="small"/></a></li>
+    <li><a href="images/05.jpg"><img src="images/05.jpg" alt="" class="small"/></a></li>
+</ul>
+
+<div class="father">
+    <img src="images/01.jpg" alt="" id="bigPic"/>
+</div>
+
+</body>
+
+<script>
+    /*需求分析： 点击上方小图片，下方大图片发生变化（大图与小图保持一致）
+    思路：1.获取元素（a）标签数组，大图片
+    2.给每一个a标签添加点击事件
+        * 在事件处理函数中阻止a标签跳转
+    3.设置大图片的路径与a标签中小图片的路径一致
+
+     */
+   var alist=document.getElementsByTagName('a');
+   var bigPic=document.getElementById('bigPic');
+   for(var i=0;i<alist.length;i++){
+       alist[i].onclick=function (  ) {
+          bigPic.src=this.href;
+           return false;
+       }
+   }
+    //1.获取元素
+    // var aList= document.getElementsByTagName('a');
+    // var bigPic = document.getElementById('bigPic');//大图片
+
+    //2.注册事件
+    // for(var i = 0;i<aList.length;i++){
+    //     aList[i].onclick = function (  ) {
+    //
+    //         console.log ( this.children );
+    //         //方式一：获取a标签的第一个子元素（小图片），将小图片的src赋值给大图片的src
+    //         //bigPic.src = this.children[0].src;
+    //         //方式二：由于a标签的跳转失效，a标签的href没有作用，借助它来存储一些数据
+    //         bigPic.src =  this.href;
+    //         //阻止a标签默认跳转
+    //         return false;
+    //     }
+    // }
+</script>
+</html>

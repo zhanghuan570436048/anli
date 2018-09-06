@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" value="请输入搜索内容" id="search">
+</body>
+
+<script>
+    /*输入框输入事件（焦点事件：输入框出现一个光标，可以输入文字）
+       onfocus： 成为焦点，光标出现（可以输入文字）
+       obblur :  失去焦点，光标消失（不能输入文字）
+     */
+
+    /*需求分析：
+        1.默认情况下输入框有默认文字
+        2.成为焦点后
+            * 如果输入框的文字是默认文字，则清空。否则不清空
+       3.失去焦点
+            * 如果输入框的文字是空，则显示默认文字
+    思路：
+        * 1.获取元素
+        * 2.给输入框注册焦点事件
+        * 3.事件处理
+            * 成为焦点：如果输入框的文字是默认文字，则清空。否则不清空
+            * 失去焦点：如果输入框的文字是空，则显示默认文字
+     */
+    //1.获取元素
+    var search = document.getElementById('search');
+
+    //2.1 成为焦点
+    search.onfocus = function (  ) {
+        console.log ( "我成为焦点来，此时可以输入文字了" );
+        //如果输入框的文字是默认文字，则清空。否则不清空
+        if(this.value == '请输入搜索内容'){
+            this.value = '';
+        }
+    }
+
+    //2.2 失去焦点
+    search.onblur = function (  ) {
+        //如果输入框的文字是空，则显示默认文字
+        if(this.value.length == 0){
+            this.value = '请输入搜索内容';
+        }
+    }
+
+</script>
+</html>

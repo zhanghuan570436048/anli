@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+    /*Math对象：计算高级数学函数
+
+    1.不需要死记硬背，只需要了解即可，用的时候查阅文档
+    2.课堂上介绍一下以后开发可能会用到的，熟能生巧
+
+     */
+
+    //1.圆周率
+    console.log ( Math.PI );//3.141592653589793
+
+    //2.绝对值:返回一个数字距离坐标原点的距离
+    console.log ( Math.abs ( - 1 ) );//1
+    //3.上舍入  天花板函数：向上取整
+    console.log ( Math.ceil ( 1.1 ) );//2
+    //4.下舍入   地板函数：向下取整
+    console.log ( Math.floor ( 5.6 ) );//5
+    //5.求一组数字最大值
+    console.log ( Math.max ( 10, 20, - 10, 55, 99 ) );//99
+    //6.求最小值
+    console.log ( Math.min ( 10, 20, - 10, 55, 99 ) );//-10
+    //7.幂运算  Math.pow(x,y)  求x的y次方
+    console.log ( Math.pow ( 2, 3 ) );//8
+    //8.四舍五入
+    console.log ( Math.round ( 4.5 ) );//5
+    //9. 随机数  0-1 之间的小数
+    console.log ( Math.random () );
+
+    //如何生成 0 - 100之间的随机数
+    //思路：（1）Math.random () * 100   得到0-100之间的小数（2）向下取整
+    console.log ( Math.floor(Math.random () * 100) );
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--开发中，很多时候样式需要添加一个小手（可以更好的提示用户这个元素是可以点击的）
+a标签默认样式就有小手，但是有时候我们只希望得到a标签的样式，而不希望跳转，这个时候我们就需要阻止a标签的跳转
+
+-->
+
+<!--阻止a标签的跳转：有多种方式，常用就两种
+1.设置a标签的href属性为： javascript:void(0)
+2.在a标签的点击事件处理函数末尾加上： return false
+-->
+
+<!--1.设置跳转路径href为伪链接-->
+<a href="javascript:void(0)" target="_blank">链接1</a>
+<a href="javascript:;" target="_blank">链接3</a>
+
+<!--2.行外点击事件处理中，在函数的末尾：return false-->
+<a id="a1" href="#" target="_blank">链接2</a>
+
+<!--3.如果a标签是行内事件，只能在行内  return false-->
+<a id="a4" href="#" target="_blank" onclick="alert('66666');return false">链接4</a>
+<a id="a5" href="#" target="_blank" onclick="fn();return false;">链接5</a>
+</body>
+
+<script>
+    //行外事件：在函数里面return false
+    document.getElementById('a1').onclick = function (  ) {
+        alert('11111');
+        return false;//最好放在最后面，因为return后面的代码不执行
+    }
+
+    function fn (  ) {
+        alert('eat chicken');
+
+    }
+</script>
+</html>

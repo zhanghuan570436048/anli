@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    //1.先写出外层循环：行的数量
+    //2.找出内层循环次数与i的关系
+    /*
+    i = 1 内层循环1列
+    …………………………
+    i = 9 内层循环9列
+
+    内层循环的次数 = i
+     */
+    for(var i = 1;i<=9;i++){
+        for(var j = 1;j<=i;j++){// i = 5 的时候 循环会执行5次 j = 1 2 3 4 5
+            document.write(j + '*' + i + '=' + j*i + '&nbsp;&nbsp;');
+        }
+        document.write('<br>')
+    }
+</script>
+</body>
+</html>

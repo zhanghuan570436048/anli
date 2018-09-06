@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+    //内置对象：js种作者已经提前为我们写好的对象（方便开发者）
+    //内置对象不需要死记硬背，查官方文档即可
+    //只需要记住常用的几个，其他以后用到查文档即可
+
+    //Date内置对象：获取时间日期
+
+    //创建日期对象
+    var myDate=new  Date()
+
+    console.log ( myDate );//打印的时候，对象会自动变成字符串
+
+    //1.转换时间格式
+    console.log ( myDate.toLocaleTimeString () );//获取时间  下午4:21:03
+    console.log ( myDate.toLocaleDateString () );//获取日期  2018/7/18
+    console.log ( myDate.toLocaleString () );//2018/7/18 下午4:21:03
+
+    //2.获取年月日时分秒 星期
+    console.log ( myDate.getFullYear () );// 年： 2018
+    //月份范围： 下标0-11  对应1-12月
+    console.log ( myDate.getMonth () );//月：6   （6下标就是第七个元素，7月）
+    console.log ( myDate.getDate () );//日： 18
+    console.log ( myDate.getDay () );//星期：3（周三）      0-6   对应周日-周六
+    console.log ( myDate.getHours () );//时： 16
+    console.log ( myDate.getMinutes () );//分
+    console.log ( myDate.getSeconds () );//秒
+    console.log ( myDate.getMilliseconds () );//毫秒
+
+    //3.创建一个自定义时间
+    //3.1 创建自定义时间  参数依次是：年月日时分秒
+    var date1 = new Date(2020,2,5,10,25,30);
+    console.log ( date1 );
+    //3.2 创建自定义时间
+    var date2 = new Date('2018-10-07 18:30:35');
+    console.log ( date2 );
+</script>
+</body>
+</html>
